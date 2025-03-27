@@ -1,20 +1,30 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
                 git 'https://github.com/niksal07/app_py.git'
             }
         }
+
         stage('Build') {
             steps {
-                sh 'echo "Building the application..."'
+                sh 'echo "Building Application..."'
             }
         }
+
         stage('Test') {
             steps {
-                sh 'echo "Running tests..."'
+                sh 'python app.py'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying Application..."'
             }
         }
     }
 }
+
