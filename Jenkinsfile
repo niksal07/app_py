@@ -4,15 +4,20 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/niksal07/app_py.git'
+                git 'https://github.com/niksal07/app_py.git'
             }
         }
 
-	stage('Install Dependencies') {
-	    steps {
-        	sh 'pip3 install flask'
-    	    }	
-	}
+        stage('Setup Virtual Environment') {
+            steps {
+                sh '''
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
+            }
+        }
 
         stage('Build') {
             steps {
@@ -22,7 +27,10 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'python3 app.py'
+                sh '''
+                    source venv/bin/activate
+                    python app.py
+                '''
             }
         }
 
