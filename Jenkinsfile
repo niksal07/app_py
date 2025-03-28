@@ -8,6 +8,12 @@ pipeline {
             }
         }
 
+	stage('Install Dependencies') {
+	    steps {
+        	sh 'pip3 install flask'
+    	    }	
+	}
+
         stage('Build') {
             steps {
                 sh 'echo "Building Application..."'
