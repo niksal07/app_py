@@ -8,6 +8,17 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    sudo apt update
+                    sudo apt install -y python3-venv python3-pip python3-full
+                    sudo apt install --reinstall -y python3-venv
+                    python3 -m ensurepip --default-pip
+                '''
+            }
+        }
+
         stage('Setup Virtual Environment') {
             steps {
                 sh '''
@@ -19,12 +30,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                sh 'echo "Building Application..."'
-            }
-        }
-
         stage('Test') {
             steps {
                 sh '''
@@ -33,12 +38,5 @@ pipeline {
                 '''
             }
         }
-
-        stage('Deploy') {
-            steps {
-                sh 'echo "Deploying Application..."'
-            }
-        }
     }
 }
-
