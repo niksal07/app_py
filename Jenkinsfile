@@ -15,7 +15,7 @@ pipeline {
                     . venv/bin/activate 
                     pip3 install --upgrade pip
                     pip3 install flask
-                    python3 app.py
+                    timeout 300 python3 app.py  # Run for 5 minutes, then stop
                 '''
             }
         }
