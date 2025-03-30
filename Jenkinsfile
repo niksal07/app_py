@@ -11,8 +11,10 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
+                    python3 -m venv venv
                     source venv/bin/activate
-                    python app.py
+                    pip3 install flask
+                    python3 app.py
                 '''
             }
         }
